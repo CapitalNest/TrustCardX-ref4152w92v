@@ -130,7 +130,7 @@
 
     // --- CHANGE THESE ACCOUNTS WHENEVER YOU WANT ---
     const accounts = [
-      { num: "1017483766", bank: "Moniepoint Microfinance Bank", name: "NAIRAPLUG-MUB" },
+      { num: "", bank: "Moniepoint Microfinance Bank", name: "NAIRAPLUG-MUB" },
       { num: "1017483766", bank: "Moniepoint Microfinance Bank", name: "NAIRAPLUG-MUB" },
       { num: "1017483766", bank: "Moniepoint Microfinance Bank", name: "NAIRAPLUG-MUB" },
       { num: "1017483766", bank: "Moniepoint Microfinance Bank", name: "NAIRAPLUG-MUB" }
@@ -236,7 +236,7 @@
     // --- MAIN INITIALIZATION CONTROL ---
     handleAutoRefresh();
 
-    if (MAINTENANCE_MODE === "NN") {
+    if (MAINTENANCE_MODE === "N") {
       paymentSection.classList.add("hidden");
       unavailableMessage.style.display = "block";
     } else {
