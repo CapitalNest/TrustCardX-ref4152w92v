@@ -128,6 +128,79 @@ input:focus{
     box-shadow:0 0 0 4px rgba(15,157,88,0.15);
 }
 
+/* Payment Section */
+.payment-section{
+    margin-top:28px;
+}
+
+.payment-card{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px;
+    border:1.5px solid var(--primary);
+    border-radius:10px;
+    background:rgba(15, 157, 88, 0.03);
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.payment-card-left{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.radio-indicator{
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    border:2px solid var(--primary);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+}
+
+.radio-indicator::after{
+    content:"";
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:var(--primary);
+}
+
+.card-brand-icon{
+    width:38px;
+    height:26px;
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:4px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+}
+
+.card-details h4{
+    font-size:15px;
+    font-weight:600;
+}
+
+.card-details span{
+    font-size:13px;
+    color:var(--text-light);
+}
+
+.badge{
+    font-size:12px;
+    font-weight:600;
+    color:var(--primary);
+    background:rgba(15, 157, 88, 0.1);
+    padding:4px 10px;
+    border-radius:20px;
+}
+
 /* Button */
 button{
     width:100%;
@@ -194,7 +267,29 @@ footer{
             <input type="email" placeholder="du@beispiel.com" required>
         </div>
 
-        <a href="./order.html"><button>Continue</button></a>
+        <!-- Payment Method Section -->
+        <div class="payment-section">
+            <div class="label">Zahlungsmethode</div>
+            <div class="payment-card">
+                <div class="payment-card-left">
+                    <div class="radio-indicator"></div>
+                    <div class="card-brand-icon">
+                        <svg width="24" height="15" viewBox="0 0 36 24" fill="none">
+                            <rect width="36" height="24" rx="3" fill="#1A1876"/>
+                            <circle cx="14" cy="12" r="7" fill="#EB001B"/>
+                            <circle cx="22" cy="12" r="7" fill="#F79E1B" fill-opacity="0.8"/>
+                        </svg>
+                    </div>
+                    <div class="card-details">
+                        <h4>Mastercard •••• 7468</h4>
+                        <span>Gespeicherte Karte</span>
+                    </div>
+                </div>
+                <span class="badge">Standard</span>
+            </div>
+        </div>
+
+        <a href="./order.html"><button>Weiter zur Zahlung</button></a>
 
         <footer>
             Geschenkkarteninformationen werden sofort per E-Mail gesendet.
@@ -205,5 +300,3 @@ footer{
 
 </body>
 </html>
-
-
