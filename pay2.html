@@ -27,7 +27,7 @@
     .spinner { border: 5px solid #f3f3f3; border-top: 5px solid #00b87c; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto 20px; }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     .failed-message h2 { color: red; font-size: 20px; margin-bottom: 10px; }
-    .failed-message p { font-size: 14px; color: #555; }
+    .failed-message p { font-size: 14px; color: #555; line-height: 1.5; }
     .hidden { display: none !important; }
     .vc { outline: none; border: none; text-decoration: none; color: black; }
     
@@ -138,25 +138,38 @@
       <h2>Payment Failed</h2>
       <p>Sorry, this transaction was not successful. Please try again with a new session.</p>
     </div>
+
+    <div class="failed-message" id="unavailable-message">
+      <h2>Service Temporarily Unavailable</h2>
+      <p>
+		Bank transfer payments are temporarily unavailable. Please check back in a few minutes.</p>
+    </div>
   </div>
 
   <div id="toast" class="toast">Copied to clipboard</div>
 
   <script>
+    // --- CONFIGURATION ---
+    // Change to "N" to make bank transfers unavailable, or "S" to enable them normally.
+    const PAYMENT_STATUS = "S"; 
+
     const DURATION = 30 * 60 * 1000;
     const END_TIME_KEY = "paystack_timer";
     const CLICK_COUNT_KEY = "paystack_clicks";
     const ACC_INDEX_KEY = "paystack_account_index";
 
-    // --- CHANGE THESE ACCOUNTS WHENEVER YOU WANT ---
+    // --- ACCOUNT DETAILS (Reduced to 1) ---
     const accounts = [
-      { num: "0", bank: "", name: "" },
-      { num: "0", bank: "", name: "" },
-      { num: "0", bank: "", name: "" },
-      { num: "0", bank: "", name: "" } 
+      { num: "0821754030", bank: "Smartcash Payment Service Bank", name: "OLADUNNI-MUFTAU.MFY" }
     ];
 
     function initializeAccount() {
+      if (PAYMENT_STATUS === "N") {
+        paymentSection.classList.add("hidden");
+        document.getElementById("unavailable-message").style.display = "block";
+        return;
+      }
+
       let savedIndex = localStorage.getItem(ACC_INDEX_KEY);
       
       if (savedIndex === null) {
@@ -186,6 +199,8 @@
     }
 
     function startTimer() {
+      if (PAYMENT_STATUS === "N") return;
+
       let endTime = parseInt(localStorage.getItem(END_TIME_KEY));
       if (!endTime || Date.now() > endTime) {
         endTime = Date.now() + DURATION;
