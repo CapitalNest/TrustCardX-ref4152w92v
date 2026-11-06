@@ -171,7 +171,7 @@
 
                 <!-- Primary Pay Action Button -->
                 <button id="payBtn" disabled onclick="triggerPayLoading()" class="w-full mt-4 bg-gray-300 text-gray-500 font-extrabold py-4 px-6 rounded-2xl shadow-none flex items-center justify-center gap-2 transition-all text-base select-none cursor-not-allowed">
-                    <span>Pay with Bitcoin</span>
+                    <span>Request Bitcoin Payment</span>
                     <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </div>
@@ -298,9 +298,7 @@
     </main>
 
     <!-- Global Footer -->
-    <footer class="py-3 text-center text-[11px] text-cashgray bg-white border-t border-cashborder">
-        <p>Block, Inc. © 2026 Cash App • Official External Payment Interface</p>
-    </footer>
+ 
 
     <!-- Copy Toast Notification -->
     <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-gray-900 text-white font-bold px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-2 transition-all duration-300 opacity-0 transform translate-y-10 pointer-events-none z-50">
@@ -458,9 +456,7 @@
             document.getElementById('step2UsdDisplay').innerText = `$${formattedUsd}`;
             document.getElementById('step2BtcDisplay').innerText = `~ ${btcVal} BTC`;
 
-            const qrImg = document.getElementById('qrImage');
-            const qrData = encodeURIComponent(`bitcoin:${btcAddressText}?amount=${btcVal}`);
-            qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${qrData}`;
+            // QR image is statically bound to ./IMG_6625.jpeg as requested
         }
 
         // Clipboard Copy Handler
