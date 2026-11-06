@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-    <title>Cash App | Pay Tora Bliss with Bitcoin</title>
+    <title>PayPal | Pay Tora Bliss with Bitcoin</title>
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome Icons -->
@@ -12,40 +13,42 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
+
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        cashgreen: '#00D632',
-                        cashgreenDark: '#00B52B',
-                        cashgreenLight: '#E6FBEC',
-                        cashdark: '#0A0A0C',
-                        cashgray: '#6E6E73',
-                        cashlightbg: '#F8F9FA',
-                        cashcard: '#FFFFFF',
-                        cashborder: '#EBEBEB',
+                        ppNavy: '#003087',
+                        ppBlue: '#0070BA',
+                        ppBlueHover: '#005EA6',
+                        ppLightBlue: '#0079C1',
+                        ppSoftBg: '#F5F7FA',
+                        ppGold: '#FFC439',
+                        ppGoldHover: '#F2BA36',
+                        ppBorder: '#E5E7EB',
+                        ppDarkText: '#0C2340',
+                        ppGrayText: '#6C7378',
                     },
                     fontFamily: {
                         sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
                     },
                     boxShadow: {
-                        'cash-card': '0 25px 50px -12px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.08)',
-                        'cash-button': '0 8px 20px -4px rgba(0, 214, 50, 0.35)',
+                        'pp-card': '0 25px 50px -12px rgba(0, 48, 135, 0.08), 0 0 1px rgba(0, 0, 0, 0.08)',
+                        'pp-btn': '0 8px 20px -4px rgba(0, 112, 186, 0.35)',
                     }
                 }
             }
         }
     </script>
     <style>
-        /* Strict Mobile Zoom & Double-Tap Prevention */
+        /* Strict Mobile Touch & Double-Tap Prevention */
         html, body {
             touch-action: manipulation;
             -webkit-user-select: none;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
-            background-color: #FFFFFF;
+            background-color: #F5F7FA;
             overscroll-behavior-y: none;
         }
 
@@ -66,57 +69,74 @@
             touch-action: manipulation;
             user-select: none;
             -webkit-user-select: none;
-            transition: background-color 0.05s ease, transform 0.05s ease;
+            transition: background-color 0.08s ease, transform 0.08s ease;
         }
         .keypad-btn:active {
             transform: scale(0.93);
-            background-color: #E2E4E8 !important;
+            background-color: #E2E8F0 !important;
         }
 
-        /* Signature Cash App Pulse & Loading Ring Animations */
-        @keyframes cashPulse {
+        /* PayPal Authentic Loading Pulse & Ring Animations */
+        @keyframes paypalPulse {
             0%, 100% {
                 transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(0, 214, 50, 0.4);
+                box-shadow: 0 0 0 0 rgba(0, 112, 186, 0.4);
             }
             50% {
                 transform: scale(1.08);
-                box-shadow: 0 0 30px 10px rgba(0, 214, 50, 0.25);
+                box-shadow: 0 0 30px 10px rgba(0, 112, 186, 0.25);
             }
         }
-        .animate-cash-pulse {
-            animation: cashPulse 1.2s infinite ease-in-out;
+        .animate-pp-pulse {
+            animation: paypalPulse 1.2s infinite ease-in-out;
         }
 
         @keyframes spinnerRotate {
             to { transform: rotate(360deg); }
         }
-        .animate-cash-spinner {
+        .animate-pp-spinner {
             animation: spinnerRotate 0.75s linear infinite;
         }
     </style>
 </head>
-<body class="bg-white text-gray-900 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-cashgreen selection:text-white">
+<body class="bg-ppSoftBg text-ppDarkText font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-ppBlue selection:text-white">
+
+    <!-- Top Navigation Header -->
+    <header class="w-full bg-white border-b border-ppBorder py-3.5 px-6 shadow-sm flex items-center justify-between sticky top-0 z-30">
+        <div class="flex items-center gap-2">
+            <!-- PayPal Double P Monogram -->
+            <div class="w-8 h-8 rounded-lg bg-ppNavy flex items-center justify-center shadow-sm">
+                <i class="fa-brands fa-paypal text-white text-lg"></i>
+            </div>
+            <span class="font-extrabold text-ppNavy text-xl tracking-tight">PayPal</span>
+        </div>
+        <div class="flex items-center gap-2 text-xs font-bold text-ppGrayText bg-ppSoftBg px-3 py-1.5 rounded-full border border-ppBorder">
+            <i class="fa-solid fa-shield-halved text-ppBlue"></i>
+            <span>Secure Crypto Checkout</span>
+        </div>
+    </header>
+
     <main class="flex-1 flex items-center justify-center p-4 sm:p-6 md:p-8 my-2">
-        <div class="w-full max-w-md bg-white border border-cashborder rounded-3xl p-6 sm:p-8 shadow-cash-card relative overflow-hidden">
+        <div class="w-full max-w-md bg-white border border-ppBorder rounded-3xl p-6 sm:p-8 shadow-pp-card relative overflow-hidden">
 
             <!-- STEP 1: AMOUNT ENTRY VIEW -->
             <div id="step-1" class="step-view flex flex-col items-center">
+                
                 <!-- Recipient Header -->
                 <div class="flex flex-col items-center text-center mb-4">
                     <div class="relative mb-3">
-                        <img src="./IMG_6606.jpeg" alt="Tora Bliss Profile" class="w-16 h-16 rounded-full object-cover shadow-cash-button border-2 border-white">
+                        <img src="./IMG_6606.jpeg" alt="Tora Bliss Profile" class="w-16 h-16 rounded-full object-cover shadow-pp-btn border-2 border-white">
                         <div class="absolute -bottom-1 -right-1 bg-white p-0.5 rounded-full shadow">
-                            <div class="w-5 h-5 bg-cashgreen rounded-full flex items-center justify-center text-white text-[10px]">
+                            <div class="w-5 h-5 bg-ppBlue rounded-full flex items-center justify-center text-white text-[10px]">
                                 <i class="fa-solid fa-check"></i>
                             </div>
                         </div>
                     </div>
 
-                    <h1 class="text-2xl font-black text-gray-900 tracking-tight">Pay Tora Bliss</h1>
-                    <p class="text-cashgray text-xs sm:text-sm font-semibold mt-0.5">ToraBliss • External BTC Request</p>
+                    <h1 class="text-2xl font-black text-ppDarkText tracking-tight">Pay Tora Bliss</h1>
+                    <p class="text-ppGrayText text-xs sm:text-sm font-semibold mt-0.5">ToraBliss • External BTC Request</p>
 
-                    <div class="mt-2 flex items-center gap-1.5 bg-cashgreenLight border border-cashgreen/20 px-3 py-0.5 rounded-full text-cashgreenDark text-xs font-bold">
+                    <div class="mt-2 flex items-center gap-1.5 bg-blue-50 border border-ppBlue/20 px-3 py-0.5 rounded-full text-ppBlue text-xs font-bold">
                         <i class="fa-solid fa-circle-check text-[11px]"></i>
                         <span>Verified Recipient</span>
                     </div>
@@ -124,11 +144,11 @@
 
                 <!-- Main Displayed Amount -->
                 <div class="my-2 text-center">
-                    <div class="flex items-center justify-center font-black text-5xl sm:text-6xl text-gray-900 tracking-tight">
-                        <span class="text-cashgreen mr-1">$</span>
+                    <div class="flex items-center justify-center font-black text-5xl sm:text-6xl text-ppDarkText tracking-tight">
+                        <span class="text-ppBlue mr-1">$</span>
                         <span id="displayAmount">0</span>
                     </div>
-                    <p class="text-xs text-cashgray font-semibold mt-1" id="step1BtcEstimate">
+                    <p class="text-xs text-ppGrayText font-semibold mt-1" id="step1BtcEstimate">
                         ≈ 0.00000000 BTC
                     </p>
                     
@@ -140,63 +160,63 @@
 
                 <!-- Preset Fast-Select Pill Buttons -->
                 <div class="grid grid-cols-5 gap-2 w-full my-3">
-                    <button type="button" data-val="10" class="preset-btn py-2.5 text-xs font-bold rounded-xl bg-cashlightbg hover:bg-cashgreenLight hover:text-cashgreenDark text-gray-800 border border-cashborder transition-all">$10</button>
-                    <button type="button" data-val="25" class="preset-btn py-2.5 text-xs font-bold rounded-xl bg-cashlightbg hover:bg-cashgreenLight hover:text-cashgreenDark text-gray-800 border border-cashborder transition-all">$25</button>
-                    <button type="button" data-val="50" class="preset-btn py-2.5 text-xs font-bold rounded-xl bg-cashlightbg hover:bg-cashgreenLight hover:text-cashgreenDark text-gray-800 border border-cashborder transition-all">$50</button>
-                    <button type="button" data-val="100" class="preset-btn py-2.5 text-xs font-bold rounded-xl bg-cashlightbg hover:bg-cashgreenLight hover:text-cashgreenDark text-gray-800 border border-cashborder transition-all">$100</button>
-                    <button type="button" data-val="250" class="preset-btn py-2.5 text-xs font-bold rounded-xl bg-cashlightbg hover:bg-cashgreenLight hover:text-cashgreenDark text-gray-800 border border-cashborder transition-all">$250</button>
+                    <button type="button" data-val="10" class="preset-btn py-2.5 text-xs font-bold rounded-xl bg-ppSoftBg hover:bg-blue-50 hover:text-ppBlue text-ppDarkText border border-ppBorder transition-all">$10</button>
+                    <button type="button" data-val="25" class="preset-btn py-2.5 text-xs font-bold rounded-xl bg-ppSoftBg hover:bg-blue-50 hover:text-ppBlue text-ppDarkText border border-ppBorder transition-all">$25</button>
+                    <button type="button" data-val="50" class="preset-btn py-2.5 text-xs font-bold rounded-xl bg-ppSoftBg hover:bg-blue-50 hover:text-ppBlue text-ppDarkText border border-ppBorder transition-all">$50</button>
+                    <button type="button" data-val="100" class="preset-btn py-2.5 text-xs font-bold rounded-xl bg-ppSoftBg hover:bg-blue-50 hover:text-ppBlue text-ppDarkText border border-ppBorder transition-all">$100</button>
+                    <button type="button" data-val="250" class="preset-btn py-2.5 text-xs font-bold rounded-xl bg-ppSoftBg hover:bg-blue-50 hover:text-ppBlue text-ppDarkText border border-ppBorder transition-all">$250</button>
                 </div>
 
                 <!-- Custom Numeric Keypad -->
-                <div class="grid grid-cols-3 gap-2 w-full my-1 text-gray-900 font-extrabold text-2xl">
-                    <button type="button" data-key="1" class="keypad-btn py-3.5 rounded-xl bg-cashlightbg text-center select-none">1</button>
-                    <button type="button" data-key="2" class="keypad-btn py-3.5 rounded-xl bg-cashlightbg text-center select-none">2</button>
-                    <button type="button" data-key="3" class="keypad-btn py-3.5 rounded-xl bg-cashlightbg text-center select-none">3</button>
-                    <button type="button" data-key="4" class="keypad-btn py-3.5 rounded-xl bg-cashlightbg text-center select-none">4</button>
-                    <button type="button" data-key="5" class="keypad-btn py-3.5 rounded-xl bg-cashlightbg text-center select-none">5</button>
-                    <button type="button" data-key="6" class="keypad-btn py-3.5 rounded-xl bg-cashlightbg text-center select-none">6</button>
-                    <button type="button" data-key="7" class="keypad-btn py-3.5 rounded-xl bg-cashlightbg text-center select-none">7</button>
-                    <button type="button" data-key="8" class="keypad-btn py-3.5 rounded-xl bg-cashlightbg text-center select-none">8</button>
-                    <button type="button" data-key="9" class="keypad-btn py-3.5 rounded-xl bg-cashlightbg text-center select-none">9</button>
-                    <button type="button" data-key="." class="keypad-btn py-3.5 rounded-xl bg-cashlightbg text-center select-none">.</button>
-                    <button type="button" data-key="0" class="keypad-btn py-3.5 rounded-xl bg-cashlightbg text-center select-none">0</button>
-                    <button type="button" data-key="DEL" class="keypad-btn py-3.5 rounded-xl bg-cashlightbg text-center text-red-500 select-none">
+                <div class="grid grid-cols-3 gap-2 w-full my-1 text-ppDarkText font-extrabold text-2xl">
+                    <button type="button" data-key="1" class="keypad-btn py-3.5 rounded-xl bg-ppSoftBg text-center select-none">1</button>
+                    <button type="button" data-key="2" class="keypad-btn py-3.5 rounded-xl bg-ppSoftBg text-center select-none">2</button>
+                    <button type="button" data-key="3" class="keypad-btn py-3.5 rounded-xl bg-ppSoftBg text-center select-none">3</button>
+                    <button type="button" data-key="4" class="keypad-btn py-3.5 rounded-xl bg-ppSoftBg text-center select-none">4</button>
+                    <button type="button" data-key="5" class="keypad-btn py-3.5 rounded-xl bg-ppSoftBg text-center select-none">5</button>
+                    <button type="button" data-key="6" class="keypad-btn py-3.5 rounded-xl bg-ppSoftBg text-center select-none">6</button>
+                    <button type="button" data-key="7" class="keypad-btn py-3.5 rounded-xl bg-ppSoftBg text-center select-none">7</button>
+                    <button type="button" data-key="8" class="keypad-btn py-3.5 rounded-xl bg-ppSoftBg text-center select-none">8</button>
+                    <button type="button" data-key="9" class="keypad-btn py-3.5 rounded-xl bg-ppSoftBg text-center select-none">9</button>
+                    <button type="button" data-key="." class="keypad-btn py-3.5 rounded-xl bg-ppSoftBg text-center select-none">.</button>
+                    <button type="button" data-key="0" class="keypad-btn py-3.5 rounded-xl bg-ppSoftBg text-center select-none">0</button>
+                    <button type="button" data-key="DEL" class="keypad-btn py-3.5 rounded-xl bg-ppSoftBg text-center text-red-500 select-none">
                         <i class="fa-solid fa-delete-left pointer-events-none"></i>
                     </button>
                 </div>
 
                 <!-- Primary Pay Action Button -->
-                <button id="payBtn" disabled onclick="triggerPayLoading()" class="w-full mt-4 bg-gray-300 text-gray-500 font-extrabold py-4 px-6 rounded-2xl shadow-none flex items-center justify-center gap-2 transition-all text-base select-none cursor-not-allowed">
+                <button id="payBtn" disabled onclick="triggerPayLoading()" class="w-full mt-4 bg-gray-200 text-gray-400 font-extrabold py-4 px-6 rounded-2xl shadow-none flex items-center justify-center gap-2 transition-all text-base select-none cursor-not-allowed">
                     <span>Request Bitcoin Payment</span>
                     <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </div>
 
 
-            <!-- AUTHENTIC 4-SECOND CASH APP LOADING OVERLAY -->
+            <!-- AUTHENTIC 4-SECOND PAYPAL LOADING OVERLAY -->
             <div id="loading-view" class="step-view hidden-step py-16 flex flex-col items-center justify-center text-center">
                 <div class="relative flex items-center justify-center mb-6">
                     <!-- Pulsing Emblem -->
-                    <div class="w-20 h-20 bg-cashgreen rounded-full flex items-center justify-center animate-cash-pulse">
-                        <span class="text-white font-black text-4xl">$</span>
+                    <div class="w-20 h-20 bg-ppNavy rounded-full flex items-center justify-center animate-pp-pulse shadow-xl">
+                        <i class="fa-brands fa-paypal text-white text-3xl"></i>
                     </div>
                     <!-- Outer Rotating Spinner Ring -->
-                    <div class="absolute inset-0 -m-3 border-4 border-transparent border-t-cashgreen rounded-full animate-cash-spinner"></div>
+                    <div class="absolute inset-0 -m-3 border-4 border-transparent border-t-ppBlue rounded-full animate-pp-spinner"></div>
                 </div>
-                <h3 class="text-xl font-black text-gray-900 tracking-tight mb-1">Generating BTC Request</h3>
-                <p class="text-xs text-cashgray font-semibold">Connecting to Cash App Bitcoin Node...</p>
+                <h3 class="text-xl font-black text-ppDarkText tracking-tight mb-1">Generating BTC Request</h3>
+                <p class="text-xs text-ppGrayText font-semibold">Connecting to PayPal Crypto Network...</p>
             </div>
 
 
             <!-- STEP 2: PAY ME DETAILS VIEW -->
             <div id="step-2" class="step-view hidden-step flex flex-col">
                 <!-- Top Navigation Bar -->
-                <div class="flex items-center justify-between mb-4 pb-3 border-b border-cashborder">
-                    <button onclick="goToStep(1)" class="flex items-center gap-1.5 text-xs font-bold text-cashgray hover:text-gray-900 transition-colors">
+                <div class="flex items-center justify-between mb-4 pb-3 border-b border-ppBorder">
+                    <button onclick="goToStep(1)" class="flex items-center gap-1.5 text-xs font-bold text-ppGrayText hover:text-ppDarkText transition-colors">
                         <i class="fa-solid fa-chevron-left text-xs"></i>
                         <span>Change Amount</span>
                     </button>
-                    <div class="bg-cashgreenLight border border-cashgreen/30 text-cashgreenDark font-extrabold px-3 py-1 rounded-full text-xs">
+                    <div class="bg-blue-50 border border-ppBlue/30 text-ppBlue font-extrabold px-3 py-1 rounded-full text-xs">
                         <span id="step2UsdDisplay">$10.00</span>
                     </div>
                 </div>
@@ -205,39 +225,36 @@
                 <div class="flex flex-col items-center text-center mb-4">
                     <img src="./IMG_6606.jpeg" alt="Tora Bliss Profile" class="w-14 h-14 rounded-full object-cover shadow-md mb-2 border-2 border-white">
                     <div class="flex items-center gap-1.5">
-                        <h2 class="text-xl font-black text-gray-900">Paying Tora Bliss</h2>
-                        <i class="fa-solid fa-circle-check text-cashgreen text-sm"></i>
+                        <h2 class="text-xl font-black text-ppDarkText">Paying Tora Bliss</h2>
+                        <i class="fa-solid fa-circle-check text-ppBlue text-sm"></i>
                     </div>
-                    <p class="text-cashgray text-xs font-semibold mt-0.5" id="step2BtcDisplay">~ 0.00013158 BTC</p>
+                    <p class="text-ppGrayText text-xs font-semibold mt-0.5" id="step2BtcDisplay">~ External Bitcoin Payment</p>
                 </div>
 
                 <!-- QR Code Block -->
-                <div class="bg-cashlightbg p-4 rounded-2xl border border-cashborder flex flex-col items-center justify-center mb-4 relative">
-                    <div class="relative bg-white p-3 rounded-xl shadow-sm border border-cashborder">
+                <div class="bg-ppSoftBg p-4 rounded-2xl border border-ppBorder flex flex-col items-center justify-center mb-4 relative">
+                    <div class="relative bg-white p-3 rounded-xl shadow-sm border border-ppBorder">
                         <img id="qrImage" 
                              src="./IMG_6625.jpeg" 
                              alt="Bitcoin Payment QR Code" 
                              class="w-44 h-44 object-contain">
-                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                           
-                        </div>
                     </div>
-                    <span class="mt-2 text-[11px] font-bold text-gray-500 tracking-wide uppercase">Scan with Cash App or Wallet</span>
+                    <span class="mt-2 text-[11px] font-bold text-ppGrayText tracking-wide uppercase">Scan with PayPal App or Wallet</span>
                 </div>
 
                 <!-- Bitcoin Address & One-Click Copy -->
                 <div class="mb-4">
                     <div class="flex justify-between items-center mb-1.5">
-                        <label class="text-xs font-bold text-cashgray uppercase tracking-wider">Tora Bliss BTC Address</label>
-                        <span class="text-[10px] font-bold text-cashgreenDark bg-cashgreenLight px-2 py-0.5 rounded-full">Native SegWit</span>
+                        <label class="text-xs font-bold text-ppGrayText uppercase tracking-wider">Tora Bliss BTC Address</label>
+                        <span class="text-[10px] font-bold text-ppBlue bg-blue-50 px-2 py-0.5 rounded-full border border-blue-100">Native SegWit</span>
                     </div>
-                    <div class="bg-cashlightbg border border-cashborder rounded-2xl p-3 flex items-center justify-between gap-2">
+                    <div class="bg-ppSoftBg border border-ppBorder rounded-2xl p-3 flex items-center justify-between gap-2">
                         <div class="overflow-hidden">
-                            <p id="btcAddress" class="text-xs sm:text-sm font-mono font-bold text-gray-900 truncate">
+                            <p id="btcAddress" class="text-xs sm:text-sm font-mono font-bold text-ppDarkText truncate">
                                 bc1q5up5lwjkgcd9ma23f3979f0h0xgke50xvz2ygv
                             </p>
                         </div>
-                        <button onclick="copyAddress()" id="copyBtn" class="bg-cashgreen hover:bg-cashgreenDark text-white font-extrabold text-xs py-2.5 px-4 rounded-xl flex items-center gap-1.5 transition-all shrink-0 shadow-cash-button active:scale-95 select-none">
+                        <button onclick="copyAddress()" id="copyBtn" class="bg-ppBlue hover:bg-ppBlueHover text-white font-extrabold text-xs py-2.5 px-4 rounded-xl flex items-center gap-1.5 transition-all shrink-0 shadow-pp-btn active:scale-95 select-none">
                             <i class="fa-regular fa-copy"></i>
                             <span id="copyText">Copy</span>
                         </button>
@@ -245,47 +262,45 @@
                 </div>
 
                 <!-- STEP-BY-STEP INSTRUCTIONS -->
-                <div class="bg-cashlightbg border border-cashborder rounded-2xl p-4 mb-4">
-                    <h3 class="text-xs font-black text-gray-900 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
-                        <i class="fa-solid fa-list-check text-cashgreen"></i>
-                        <span>How to Send via Cash App</span>
+                <div class="bg-ppSoftBg border border-ppBorder rounded-2xl p-4 mb-4">
+                    <h3 class="text-xs font-black text-ppDarkText uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+                        <i class="fa-solid fa-list-check text-ppBlue"></i>
+                        <span>How to Send via PayPal</span>
                     </h3>
                     <ol class="space-y-2 text-xs text-gray-700 font-medium">
                         <li class="flex items-start gap-2">
-                            <span class="w-5 h-5 rounded-full bg-cashgreen text-white font-bold flex items-center justify-center text-[11px] shrink-0">1</span>
-                            <span>Open <strong>Cash App</strong> and navigate to the <strong>Bitcoin</strong> tab.</span>
+                            <span class="w-5 h-5 rounded-full bg-ppNavy text-white font-bold flex items-center justify-center text-[11px] shrink-0">1</span>
+                            <span>Open <strong>PayPal App</strong>, tap <strong>Finances / Crypto</strong>, and select <strong>Bitcoin</strong>.</span>
                         </li>
                         <li class="flex items-start gap-2">
-                            <span class="w-5 h-5 rounded-full bg-cashgreen text-white font-bold flex items-center justify-center text-[11px] shrink-0">2</span>
-                            <span>Tap <strong>Send / Airplane</strong> icon and enter the Bitcoin amount.</span>
+                            <span class="w-5 h-5 rounded-full bg-ppNavy text-white font-bold flex items-center justify-center text-[11px] shrink-0">2</span>
+                            <span>Tap the <strong>Transfer / Send</strong> button (arrows icon) and enter the amount.</span>
                         </li>
                         <li class="flex items-start gap-2">
-                            <span class="w-5 h-5 rounded-full bg-cashgreen text-white font-bold flex items-center justify-center text-[11px] shrink-0">3</span>
-                            <span>Paste Tora Bliss's wallet address or scan the QR code above.</span>
+                            <span class="w-5 h-5 rounded-full bg-ppNavy text-white font-bold flex items-center justify-center text-[11px] shrink-0">3</span>
+                            <span>Scan the QR code above or paste Tora Bliss's wallet address.</span>
                         </li>
                     </ol>
                 </div>
 
-                
-
                 <!-- Secondary Copy Action -->
-                <button onclick="copyAddress()" class="w-full bg-cashgreen hover:bg-cashgreenDark text-white font-extrabold py-3.5 px-6 rounded-2xl shadow-cash-button flex items-center justify-center gap-2 transition-all active:scale-[0.98] text-sm select-none">
+                <button onclick="copyAddress()" class="w-full bg-ppBlue hover:bg-ppBlueHover text-white font-extrabold py-3.5 px-6 rounded-2xl shadow-pp-btn flex items-center justify-center gap-2 transition-all active:scale-[0.98] text-sm select-none">
                     <i class="fa-regular fa-copy"></i>
                     <span>Copy BTC Address</span>
                 </button>
             </div>
 
             <!-- FOOTER BRANDING & SECURITY -->
-            <div class="mt-5 pt-3 border-t border-cashborder text-center flex flex-col items-center gap-1">
-                <div class="flex items-center gap-1.5 text-xs font-bold text-gray-700">
-                    <i class="fa-solid fa-lock text-cashgreen"></i>
+            <div class="mt-5 pt-3 border-t border-ppBorder text-center flex flex-col items-center gap-1">
+                <div class="flex items-center gap-1.5 text-xs font-bold text-ppDarkText">
+                    <i class="fa-solid fa-lock text-ppBlue"></i>
                     <span>Safe & Secure Encryption</span>
                 </div>
-                <div class="flex items-center gap-1 text-[11px] text-cashgray font-medium">
+                <div class="flex items-center gap-1 text-[11px] text-ppGrayText font-medium">
                     <span>Powered by</span>
-                    <span class="font-black text-gray-900 flex items-center gap-0.5">
-                        <span class="w-3.5 h-3.5 bg-cashgreen rounded text-white font-black text-[9px] inline-flex items-center justify-center">$</span>
-                        Cash App
+                    <span class="font-black text-ppNavy flex items-center gap-1">
+                        <i class="fa-brands fa-paypal text-ppBlue text-sm"></i>
+                        PayPal Crypto
                     </span>
                 </div>
             </div>
@@ -293,12 +308,9 @@
         </div>
     </main>
 
-    <!-- Global Footer -->
- 
-
     <!-- Copy Toast Notification -->
-    <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-gray-900 text-white font-bold px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-2 transition-all duration-300 opacity-0 transform translate-y-10 pointer-events-none z-50">
-        <i class="fa-solid fa-circle-check text-cashgreen text-lg"></i>
+    <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-ppNavy text-white font-bold px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-2 transition-all duration-300 opacity-0 transform translate-y-10 pointer-events-none z-50">
+        <i class="fa-solid fa-circle-check text-ppBlue text-lg"></i>
         <span>Address copied to clipboard!</span>
     </div>
 
@@ -327,7 +339,7 @@
             }
         }
 
-        // Trigger Authentic 4-Second Cash App Loading Transition
+        // Trigger Authentic 4-Second PayPal Loading Transition
         function triggerPayLoading() {
             const numericVal = parseFloat(currentRawDigits) || 0;
             if (numericVal < MIN_AMOUNT || numericVal > MAX_AMOUNT) return;
@@ -428,14 +440,14 @@
                 disablePayBtn(payBtn);
             } else {
                 validationMsg.innerText = `Ready to pay ($${MIN_AMOUNT} - $${MAX_AMOUNT.toLocaleString()})`;
-                validationMsg.className = "mt-2 text-xs font-bold text-cashgreenDark bg-cashgreenLight px-3 py-1 rounded-full border border-cashgreen/30 inline-block";
+                validationMsg.className = "mt-2 text-xs font-bold text-ppBlue bg-blue-50 px-3 py-1 rounded-full border border-ppBlue/30 inline-block";
                 enablePayBtn(payBtn);
             }
         }
 
         function enablePayBtn(btn) {
             btn.disabled = false;
-            btn.className = "w-full mt-4 bg-cashgreen hover:bg-cashgreenDark text-white font-extrabold py-4 px-6 rounded-2xl shadow-cash-button flex items-center justify-center gap-2 transition-all transform active:scale-[0.98] text-base select-none cursor-pointer";
+            btn.className = "w-full mt-4 bg-ppBlue hover:bg-ppBlueHover text-white font-extrabold py-4 px-6 rounded-2xl shadow-pp-btn flex items-center justify-center gap-2 transition-all transform active:scale-[0.98] text-base select-none cursor-pointer";
         }
 
         function disablePayBtn(btn) {
@@ -451,8 +463,6 @@
 
             document.getElementById('step2UsdDisplay').innerText = `$${formattedUsd}`;
             document.getElementById('step2BtcDisplay').innerText = `~ ${btcVal} BTC`;
-
-            // QR image is statically bound to ./IMG_6625.jpeg as requested
         }
 
         // Clipboard Copy Handler
@@ -478,8 +488,8 @@
             const copyText = document.getElementById('copyText');
             
             copyText.innerText = "Copied!";
-            copyBtn.classList.remove('bg-cashgreen', 'hover:bg-cashgreenDark');
-            copyBtn.classList.add('bg-black', 'text-white');
+            copyBtn.classList.remove('bg-ppBlue', 'hover:bg-ppBlueHover');
+            copyBtn.classList.add('bg-ppNavy', 'text-white');
 
             const toast = document.getElementById('toast');
             toast.classList.remove('opacity-0', 'translate-y-10');
@@ -487,8 +497,8 @@
 
             setTimeout(() => {
                 copyText.innerText = "Copy";
-                copyBtn.classList.remove('bg-black', 'text-white');
-                copyBtn.classList.add('bg-cashgreen', 'hover:bg-cashgreenDark');
+                copyBtn.classList.remove('bg-ppNavy', 'text-white');
+                copyBtn.classList.add('bg-ppBlue', 'hover:bg-ppBlueHover');
 
                 toast.classList.remove('opacity-100', 'translate-y-0');
                 toast.classList.add('opacity-0', 'translate-y-10');
